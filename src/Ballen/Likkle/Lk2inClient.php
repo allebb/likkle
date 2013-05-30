@@ -18,8 +18,180 @@ namespace Ballen\Likkle;
 
 class Lk2inClient
 {
+    /**
+     * lk2.in API specific settings.
+     */
 
     const HTTP_LK2IN_URL = 'http://lk2.in/';
+    const HTTP_LK2IN_WSPATH = 'api/v1/';
+
+    /**
+     * Object storage for the web service response.
+     * @var string JSON response data.
+     */
+    private $response = null;
+
+    /**
+     * Object storage for the API method eg. 'get', 'clicks' etc.
+     * @var string
+     */
+    private $request_wsmethod = null;
+
+    /**
+     * Request a new counter (instead of using global click stats.)
+     * @var bool
+     */
+    private $request_new = false;
+
+    /**
+     * Optional proxy server hostname or IP address.
+     * @var string
+     */
+    private $proxy_host = null;
+
+    /**
+     * Optional proxy server TCP port (defaulted to 8080)
+     * @var integer
+     */
+    private $proxy_port = 8080;
+
+    /**
+     * Optional proxy server BASIC authentication string (Base64)
+     * @var string
+     */
+    private $proxy_auth = null;
+
+    /**
+     * Generates the complete RESTful URI ready to be sent to the LK2.IN web service.
+     * @param string $url URL to craete/get count stats for.
+     * @return string The prepared lk2.in webservice URL.
+     */
+    protected function generateRequestURI($url)
+    {
+        if ($this->request_new) {
+            return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($url) . '?forcenew';
+        } else {
+            return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($url);
+        }
+    }
+
+    /**
+     * Sends the request to the lk2.in web serivce and returns the raw response.
+     * @param string $uri The full URI to request and get the raw response from.
+     * @return \Ballen\Likkle\Lk2inClient
+     */
+    protected function sendRequest($uri)
+    {
+        $aContext = array(
+            'http' => array(
+                'method' => 'GET',
+                'request_fulluri' => true,
+            ),
+        );
+        if ($this->proxy_host) {
+            $aContext['http'] = array_merge($aContext['http'], array('proxy' => $this->proxy_host . ':' . $this->proxy_port));
+        }
+        if ($this->proxy_auth) {
+            $aContext['http']['header'] = array_merge(array("Proxy-Authorization: Basic $this->proxy_auth"));
+        }
+        $cxContext = stream_context_create($aContext);
+        $this->response = file_get_contents($uri, false, $cxContext);
+        return $this;
+    }
+
+    /**
+     * Returns a shortcode for the given URL.
+     * @param string $url The current URL of which you wish to shorten.
+     * @return mixed Will return the full short url or 'false' if the API fails to respond with an new short code.
+     */
+    public function getShortURL($url)
+    {
+        $this->request_wsmethod = 'get';
+        $this->sendRequest($this->generateRequestURI(urlencode($url)));
+        $apiresponse = json_decode($this->response);
+        if (isset($apiresponse->shorturl)) {
+            return self::HTTP_LK2IN_URL . $apiresponse->shorturl;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the number of times a link has been visited/clicked.
+     * @param string $shortcode The shortcode as supplied by the webservice (the random alphanumeric characters after the TLD eg. 'http://lk2.in/XXXXXX')
+     * @return mixed Will return the number of clicks/visits or 'false' if the API fails to respond with the total number of clicks.
+     */
+    public function getClicks($shortcode)
+    {
+        $this->request_wsmethod = 'clicks';
+        $this->sendRequest($this->generateRequestURI($shortcode));
+        $apiresponse = json_decode($this->response);
+        if (isset($apiresponse->numberclicks)) {
+            return $apiresponse->numberclicks;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns a replaced string of multiple URLs with newly created lk2.in URLs.
+     * @param string $string Replaced string with newly generated short URLs.
+     */
+    public function getShortURLReplacementInString($string)
+    {
+        preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $string, $result, PREG_PATTERN_ORDER);
+        //print_r($result);
+        $replacement_urls = array();
+        // This iterates over each of the found URL and sends API requests to generate URLs.
+        foreach ($result[0] as $url) {
+            // We store the newly generated URL's into an array ready for the iterative str_replace.
+            $replacement_urls[] = $this->getShortURL($url);
+        }
+        $new_content = $string;
+        $pass = 0;
+        foreach ($replacement_urls as $new_url) {
+            $new_content = str_replace($result[0][$pass], $new_url, $new_content);
+            $pass++;
+        }
+        return $new_content;
+    }
+
+    /**
+     * Forces the API to create a new URL shortcode so that the user does not get global click stats for the original URL.
+     * @return \Ballen\Likkle\Lk2inClient
+     */
+    public function forceNewCounter()
+    {
+        $this->request_new = true;
+        return $this;
+    }
+
+    /**
+     * Sets Proxy server host and port infomation (if required.)
+     * @param string $host The hostname or IP address of the proxy server.
+     * @param string $port The TCP port to use to connect to the proxy (default is set to 8080)
+     * @return \Ballen\Likkle\Lk2inClient
+     */
+    public function setProxyHost($host, $port = null)
+    {
+        $this->proxy_host = $host;
+        if ($port) {
+            $this->proxy_port = $port;
+        }
+        return $this;
+    }
+
+    /**
+     * Sets Proxy BASIC authentication.
+     * @param string $username Username to use to authenticate with the proxy.
+     * @param string $password Password to use to authenticate with the proxy.
+     * @return \Ballen\Likkle\Lk2inClient
+     */
+    public function setProxyAuth($username, $password)
+    {
+        $this->proxy_auth = base64_encode("$username:$password");
+        return $this;
+    }
 
 }
 
