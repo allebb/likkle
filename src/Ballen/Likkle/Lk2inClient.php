@@ -62,16 +62,36 @@ class Lk2inClient
     private $proxy_auth = null;
 
     /**
+     * The HTTP method type used for the request.
+     * @var string
+     */
+    private $request_httpmethod = 'GET';
+
+    /**
+     * Array of POST variables (to be used when $this->request_httpmethod is equals to 'POST')
+     * @var array
+     */
+    private $post_params = array();
+
+    /**
      * Generates the complete RESTful URI ready to be sent to the LK2.IN web service.
-     * @param string $url URL to craete/get count stats for.
+     * @param string $url Optional Shortcode to get count stats/URL for (used on GET requests only!).
      * @return string The prepared lk2.in webservice URL.
      */
-    protected function generateRequestURI($url)
+    protected function generateRequestURI($shortcode = null)
     {
-        if ($this->request_new) {
-            return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($url) . '?forcenew';
+        if ($shortcode != null) {
+            if ($this->request_new) {
+                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($shortcode) . '?forcenew';
+            } else {
+                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($shortcode);
+            }
         } else {
-            return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($url);
+            if ($this->request_new) {
+                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '?forcenew';
+            } else {
+                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod;
+            }
         }
     }
 
@@ -84,7 +104,7 @@ class Lk2inClient
     {
         $aContext = array(
             'http' => array(
-                'method' => 'GET',
+                'method' => $this->request_httpmethod,
                 'request_fulluri' => true,
             ),
         );
@@ -92,9 +112,20 @@ class Lk2inClient
             $aContext['http'] = array_merge($aContext['http'], array('proxy' => $this->proxy_host . ':' . $this->proxy_port));
         }
         if ($this->proxy_auth) {
-            $aContext['http']['header'] = array_merge(array("Proxy-Authorization: Basic $this->proxy_auth"));
+            if (!isset($aContext['http']['header'])) {
+                $aContext['http']['header'] = array();
+            }
+            array_push($aContext['http']['header'], "Proxy-Authorization: Basic $this->proxy_auth");
+        }
+        if (count($this->post_params) > 0) {
+            if (!isset($aContext['http']['header'])) {
+                $aContext['http']['header'] = array();
+            }
+            array_push($aContext['http']['header'], 'Content-Type: application/x-www-form-urlencoded');
+            $aContext['http']['content'] = http_build_query($this->post_params);
         }
         $cxContext = stream_context_create($aContext);
+        die(var_dump($aContext));
         $this->response = file_get_contents($uri, false, $cxContext);
         return $this;
     }
@@ -107,7 +138,11 @@ class Lk2inClient
     public function getShortURL($url)
     {
         $this->request_wsmethod = 'get';
-        $this->sendRequest($this->generateRequestURI(urlencode($url)));
+        $this->request_httpmethod = 'POST';
+        $this->post_params = array(
+            'url' => urlencode($url)
+        );
+        $this->sendRequest($this->generateRequestURI());
         $apiresponse = json_decode($this->response);
         if (isset($apiresponse->shorturl)) {
             return self::HTTP_LK2IN_URL . $apiresponse->shorturl;
@@ -124,6 +159,7 @@ class Lk2inClient
     public function getClicks($shortcode)
     {
         $this->request_wsmethod = 'clicks';
+        $this->request_httpmethod = 'GET';
         $this->sendRequest($this->generateRequestURI($shortcode));
         $apiresponse = json_decode($this->response);
         if (isset($apiresponse->numberclicks)) {
