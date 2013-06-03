@@ -125,7 +125,7 @@ class Lk2inClient
             $aContext['http']['content'] = http_build_query($this->post_params);
         }
         $cxContext = stream_context_create($aContext);
-        die(var_dump($aContext));
+        //die(var_dump($aContext));
         $this->response = file_get_contents($uri, false, $cxContext);
         return $this;
     }
