@@ -27,10 +27,15 @@ $lk2client = new Lk2inClient;
 
 
 /**
- * Example of creating a standard short URL and also returning the number of clicks for a short url.
+ * Example of creating a standard short URL.
  */
-$thenewurl = $lk2client->getShortURL('www.bobbyallen.me');
-echo "Your new URL is: <a href=\"" . $thenewurl . "\">" . $thenewurl . "</a>, it has been clicked " . $lk2client->getClicks('Vl5ST') . " times.";
+$thenewurl = $lk2client->getShortURL('https://github.com/bobsta63/likkle');
+echo "Your new URL is: <a href=\"" . $thenewurl . "\">" . $thenewurl . "</a>.";
+
+// Raw examplexample of outputting the repsonse in plaintext.
+//echo "Raw request was: <br>" . $lk2client->getRawResponse();
+// Vardump of the repsonse object:-
+//echo "Response object is: <br>" . var_dump($lk2client->getResponseObject());
 
 /**
  * Example of creating a new short URL and ensuring that it has it's own 'click counter' instead of using the global click counter.
@@ -38,7 +43,6 @@ echo "Your new URL is: <a href=\"" . $thenewurl . "\">" . $thenewurl . "</a>, it
 //$lk2client->forceNewCounter();
 //$thenewurl = $lk2client->getShortURL('www.zpanelcp.com');
 //echo "Your new URL is: <a href=\"" . $thenewurl . "\">" . $thenewurl . "</a>";
-
 
 /**
  * Example of parsing an entire message with embedded links and dynamically replacing them with new short URLs.

@@ -111,22 +111,24 @@ class Lk2inClient
         if ($this->proxy_host) {
             $aContext['http'] = array_merge($aContext['http'], array('proxy' => $this->proxy_host . ':' . $this->proxy_port));
         }
+        if (count($this->post_params) > 0) {
+            if (!isset($aContext['http']['header'])) {
+                $aContext['http']['header'] = array();
+            }
+            $request_content = http_build_query($this->post_params);
+            array_push($aContext['http']['header'], 'Content-Type: application/x-www-form-urlencoded');
+            array_push($aContext['http']['header'], 'Content-Length: ' . strlen($request_content));
+            $aContext['http']['content'] = $request_content;
+        }
         if ($this->proxy_auth) {
             if (!isset($aContext['http']['header'])) {
                 $aContext['http']['header'] = array();
             }
             array_push($aContext['http']['header'], "Proxy-Authorization: Basic $this->proxy_auth");
         }
-        if (count($this->post_params) > 0) {
-            if (!isset($aContext['http']['header'])) {
-                $aContext['http']['header'] = array();
-            }
-            array_push($aContext['http']['header'], 'Content-Type: application/x-www-form-urlencoded');
-            $aContext['http']['content'] = http_build_query($this->post_params);
-        }
         $cxContext = stream_context_create($aContext);
-        //die(var_dump($aContext));
         $this->response = file_get_contents($uri, false, $cxContext);
+        $this->resetRequest();
         return $this;
     }
 
@@ -137,10 +139,10 @@ class Lk2inClient
      */
     public function getShortURL($url)
     {
-        $this->request_wsmethod = 'get';
+        $this->request_wsmethod = 'url';
         $this->request_httpmethod = 'POST';
         $this->post_params = array(
-            'url' => urlencode($url)
+            'url' => $url
         );
         $this->sendRequest($this->generateRequestURI());
         $apiresponse = json_decode($this->response);
@@ -176,11 +178,8 @@ class Lk2inClient
     public function getShortURLReplacementInString($string)
     {
         preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $string, $result, PREG_PATTERN_ORDER);
-        //print_r($result);
         $replacement_urls = array();
-        // This iterates over each of the found URL and sends API requests to generate URLs.
         foreach ($result[0] as $url) {
-            // We store the newly generated URL's into an array ready for the iterative str_replace.
             $replacement_urls[] = $this->getShortURL($url);
         }
         $new_content = $string;
@@ -200,6 +199,24 @@ class Lk2inClient
     {
         $this->request_new = true;
         return $this;
+    }
+
+    /**
+     * Returns the raw response content (as a JSON string.)
+     * @return string
+     */
+    public function getRawResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Returns the response (JSON decoded) so you can access like $object->message and $object->error etc.
+     * @return object JSON decoded object containing response elements.
+     */
+    public function getResponseObject()
+    {
+        return json_decode($this->response);
     }
 
     /**
@@ -226,6 +243,18 @@ class Lk2inClient
     public function setProxyAuth($username, $password)
     {
         $this->proxy_auth = base64_encode("$username:$password");
+        return $this;
+    }
+
+    /**
+     * Resets the request parameters/settings ready for the next request.
+     * @return \Ballen\Likkle\Lk2inClient
+     */
+    protected function resetRequest()
+    {
+        $this->post_params = array();
+        $this->request_wsmethod = null;
+        $this->request_httpmethod = 'GET';
         return $this;
     }
 
