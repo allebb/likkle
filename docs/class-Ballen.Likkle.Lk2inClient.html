@@ -6,7 +6,7 @@
 
 	<title>Class Ballen\Likkle\Lk2inClient | Likkle</title>
 
-	<script type="text/javascript" src="resources/combined.js?4123518658"></script>
+	<script type="text/javascript" src="resources/combined.js?3354349946"></script>
 	<script type="text/javascript" src="elementlist.js?461711390"></script>
 	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
 
@@ -96,7 +96,7 @@
 		<b>Namespace:</b> <a href="namespace-Ballen.html">Ballen</a>\<a href="namespace-Ballen.Likkle.html">Likkle</a><br />
 		
 
-		<b>Located at</b> <a href="source-class-Ballen.Likkle.Lk2inClient.html#19-196" title="Go to source code">src/Ballen/Likkle/Lk2inClient.php</a><br />
+		<b>Located at</b> <a href="source-class-Ballen.Likkle.Lk2inClient.html#19-261" title="Go to source code">src/Ballen/Likkle/Lk2inClient.php</a><br />
 	</div>
 
 
@@ -114,7 +114,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_generateRequestURI">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#64-76" title="Go to source code">generateRequestURI</a>( <span>string <var>$url</var></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#76-96" title="Go to source code">generateRequestURI</a>( <span>string <var>$shortcode</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -132,8 +132,8 @@ service.</p>
 
 				<h4>Parameters</h4>
 				<div class="list"><dl>
-					<dt><var>$url</var></dt>
-					<dd><code>string</code><br>$url URL to craete/get count stats for.</dd>
+					<dt><var>$shortcode</var></dt>
+					<dd><code>string</code><br>$url Optional Shortcode to get count stats/URL for (used on GET requests only!).</dd>
 				</dl></div>
 
 				<h4>Returns</h4>
@@ -158,7 +158,7 @@ service.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sendRequest">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#78-100" title="Go to source code">sendRequest</a>( <span>string <var>$uri</var></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#98-133" title="Go to source code">sendRequest</a>( <span>string <var>$uri</var></span> )</code>
 
 		<div class="description short">
 			
@@ -200,7 +200,7 @@ service.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getShortURL">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#102-117" title="Go to source code">getShortURL</a>( <span>string <var>$url</var></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#135-154" title="Go to source code">getShortURL</a>( <span>string <var>$url</var></span> )</code>
 
 		<div class="description short">
 			
@@ -243,7 +243,7 @@ new short code.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getClicks">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#119-134" title="Go to source code">getClicks</a>( <span>string <var>$shortcode</var></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#156-172" title="Go to source code">getClicks</a>( <span>string <var>$shortcode</var></span> )</code>
 
 		<div class="description short">
 			
@@ -287,7 +287,7 @@ with the total number of clicks.<br />
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getShortURLReplacementInString">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#136-157" title="Go to source code">getShortURLReplacementInString</a>( <span>string <var>$string</var></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#174-192" title="Go to source code">getShortURLReplacementInString</a>( <span>string <var>$string</var></span> )</code>
 
 		<div class="description short">
 			
@@ -327,7 +327,7 @@ URLs.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_forceNewCounter">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#159-167" title="Go to source code">forceNewCounter</a>( )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#194-202" title="Go to source code">forceNewCounter</a>( )</code>
 
 		<div class="description short">
 			
@@ -355,6 +355,82 @@ global click stats for the original URL.</p>
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="getRawResponse" id="_getRawResponse">
+
+		<td class="attributes"><code>
+			 public 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRawResponse">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#204-211" title="Go to source code">getRawResponse</a>( )</code>
+
+		<div class="description short">
+			
+<p>Returns the raw response content (as a JSON string.)</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns the raw response content (as a JSON string.)</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResponseObject" id="_getResponseObject">
+
+		<td class="attributes"><code>
+			 public 
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResponseObject">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#213-220" title="Go to source code">getResponseObject</a>( )</code>
+
+		<div class="description short">
+			
+<p>Returns the response (JSON decoded) so you can access like
+$object-&gt;message and $object-&gt;error etc.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns the response (JSON decoded) so you can access like
+$object-&gt;message and $object-&gt;error etc.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>object</code><br>JSON decoded object containing response elements.<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="setProxyHost" id="_setProxyHost">
 
 		<td class="attributes"><code>
@@ -366,7 +442,7 @@ global click stats for the original URL.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setProxyHost">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#169-182" title="Go to source code">setProxyHost</a>( <span>string <var>$host</var></span>, <span>string <var>$port</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#222-235" title="Go to source code">setProxyHost</a>( <span>string <var>$host</var></span>, <span>string <var>$port</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -410,7 +486,7 @@ global click stats for the original URL.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setProxyAuth">#</a>
-		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#184-194" title="Go to source code">setProxyAuth</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span> )</code>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#237-247" title="Go to source code">setProxyAuth</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span> )</code>
 
 		<div class="description short">
 			
@@ -431,6 +507,43 @@ global click stats for the original URL.</p>
 					<dt><var>$password</var></dt>
 					<dd><code>string</code><br>$password Password to use to authenticate with the proxy.</dd>
 				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="resetRequest" id="_resetRequest">
+
+		<td class="attributes"><code>
+			 protected 
+			<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_resetRequest">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#249-259" title="Go to source code">resetRequest</a>( )</code>
+
+		<div class="description short">
+			
+<p>Resets the request parameters/settings ready for the next request.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Resets the request parameters/settings ready for the next request.</p>
+
+
+
 
 				<h4>Returns</h4>
 				<div class="list">
