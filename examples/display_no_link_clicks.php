@@ -17,7 +17,7 @@ use Ballen\Likkle\Lk2inClient;
 
 $lk2client = new Lk2inClient;
 
-$shortcode = 'vwhi5';
+$shortcode = 'cU';
 $number_of_clicks = $lk2client->getClicks($shortcode);
 
 switch ($number_of_clicks) {

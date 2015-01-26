@@ -33,12 +33,6 @@ class Lk2inClient
     private $request_wsmethod = null;
 
     /**
-     * Request a new counter (instead of using global click stats.)
-     * @var bool
-     */
-    private $request_new = false;
-
-    /**
      * Optional proxy server hostname or IP address.
      * @var string
      */
@@ -63,16 +57,10 @@ class Lk2inClient
     private $request_httpmethod = 'GET';
 
     /**
-     * Array of POST variables (to be used when $this->request_httpmethod is equals to 'POST')
-     * @var array
-     */
-    private $post_params = array();
-
-    /**
      * Generates the RESTful URI ready to be sent to the LK2.IN web service.
      * @return string The prepared lk2.in webservice URL.
      */
-    protected function generateRequestURI()
+    protected function generateRequestUri()
     {
         return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod;
     }
@@ -93,15 +81,6 @@ class Lk2inClient
         if ($this->proxy_host) {
             $aContext['http'] = array_merge($aContext['http'], array('proxy' => $this->proxy_host . ':' . $this->proxy_port));
         }
-        if (count($this->post_params) > 0) {
-            if (!isset($aContext['http']['header'])) {
-                $aContext['http']['header'] = array();
-            }
-            $request_content = http_build_query($this->post_params);
-            array_push($aContext['http']['header'], 'Content-Type: application/x-www-form-urlencoded');
-            array_push($aContext['http']['header'], 'Content-Length: ' . strlen($request_content));
-            $aContext['http']['content'] = $request_content;
-        }
         if ($this->proxy_auth) {
             if (!isset($aContext['http']['header'])) {
                 $aContext['http']['header'] = array();
@@ -119,13 +98,13 @@ class Lk2inClient
      * @param string $url The current URL of which you wish to shorten.
      * @return mixed Will return the full short url or 'false' if the API fails to respond with an new short code.
      */
-    public function getShortURL($url, $urlencode = true)
+    public function getShortUrl($url, $urlencode = true)
     {
         $this->request_wsmethod = 'shorten';
         if ($urlencode) {
-            $url = urldecode($url);
+            $url = urlencode($url);
         }
-        $this->sendRequest($this->generateRequestURI() . '?url=');
+        $this->sendRequest($this->generateRequestUri() . '?url=' . $url);
 
         $apiresponse = json_decode($this->response);
         if (isset($apiresponse->data->hash)) {
@@ -142,24 +121,24 @@ class Lk2inClient
     public function getStats($shortcode)
     {
         $this->request_wsmethod = 'stats';
-        $this->sendRequest($this->generateRequestURI() . '?hash=' . $shortcode);
+        $this->sendRequest($this->generateRequestUri() . '?hash=' . $shortcode);
         $apiresponse = json_decode($this->response);
-        if (isset($apiresponse->data)) {
-            return $apiresponse->data;
+        if (isset($apiresponse->data->hash)) {
+            return $apiresponse->data->stats;
         }
         return false;
     }
 
     /**
      * Returns the number of times a link has been visited/clicked.
-     * @param string $shortcode The shortcode as supplied by the webservice (the random alphanumeric characters after the TLD eg. 'http://lk2.in/XXXXXX')
-     * @return mixed Will return the number of clicks/visits or 'false' if the API fails to respond with the total number of clicks.
+     * @param string $shortcode The shortcode as supplied by the webservice (the random alphanumeric characters after the TLD eg. 'http://lk2.in/XXX')
+     * @return int|boolean Will return the number of clicks/visits or 'false' if the API fails to respond with the total number of clicks.
      */
     public function getClicks($shortcode)
     {
-        $apiresponse = $this->getStats($shortcode);
-        if (isset($apiresponse->visits)) {
-            return $apiresponse->visits;
+        $clicks = $this->getStats($shortcode);
+        if (isset($clicks->total_visits)) {
+            return $clicks->total_visits;
         }
         return false;
     }
@@ -168,7 +147,7 @@ class Lk2inClient
      * Returns a replaced string of multiple URLs with newly created lk2.in URLs.
      * @param string $string Replaced string with newly generated short URLs.
      */
-    public function getShortURLReplacementInString($string)
+    public function getShortUrlReplacementInString($string)
     {
         preg_match_all('/\b(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)[-A-Z0-9+&@#\/%=~_|$?!:,.]*[A-Z0-9+&@#\/%=~_|$]/i', $string, $result, PREG_PATTERN_ORDER);
         $replacement_urls = array();
@@ -245,9 +224,7 @@ class Lk2inClient
      */
     protected function resetRequest()
     {
-        $this->post_params = array();
         $this->request_wsmethod = null;
-        $this->request_httpmethod = 'GET';
         return $this;
     }
 }

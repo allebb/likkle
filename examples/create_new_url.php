@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Likkle is a composer compatible PHP client library for the lk2.in
  *  URL shortener service (http://lk2.in).
@@ -27,7 +26,7 @@ $lk2client = new Lk2inClient;
 /**
  * Example of creating a standard short URL.
  */
-$thenewurl = $lk2client->getShortURL('https://github.com/bobsta63/likkle');
+$thenewurl = $lk2client->getShortUrl('https://github.com/bobsta63/likkle');
 echo "Your new URL is: <a href=\"" . $thenewurl . "\">" . $thenewurl . "</a>.";
 
 // Raw examplexample of outputting the repsonse in plaintext.
