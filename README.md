@@ -1,17 +1,24 @@
 Likkle
 ======
 
-Likkle is a composer compatible PHP client library for the lk2.in URL shortener service (http://lk2.in).
+Likkle is a PHP library for the [lk2.in](http://lk2.in) URL shortening service.
 
-Likkle is written and maintained by Bobby Allen, licensed under the MIT license.
+Requirements
+------------
+
+* PHP >= 5.4.0
 
 License
 -------
-The MIT License (MIT)
-Copyright (c) 2013 Bobby Allen <ballen@bobbyallen.me>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+This library is released under the [MIT license](LICENSE).
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+Examples
+--------
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+A set of working examples can be found in the ``/examples`` directory.
+
+Support
+-------
+
+I am happy to provide support via. my personal email address, so if you need a hand drop me an email at: [ballen@bobbyallen.me](mailto:ballen@bobbyallen.me).
