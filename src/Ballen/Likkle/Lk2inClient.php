@@ -96,6 +96,7 @@ class Lk2inClient
     /**
      * Returns a shortcode for the given URL.
      * @param string $url The current URL of which you wish to shorten.
+     * @param boolean $urlencode URL encode the URL?
      * @return mixed Will return the full short url or 'false' if the API fails to respond with an new short code.
      */
     public function getShortUrl($url, $urlencode = true)
@@ -104,7 +105,7 @@ class Lk2inClient
         if ($urlencode) {
             $url = urlencode($url);
         }
-        $this->sendRequest($this->generateRequestUri() . '?url=' . $url);
+        $this->sendRequest($this->generateRequestUri() . '?long_url=' . $url);
 
         $apiresponse = json_decode($this->response);
         if (isset($apiresponse->data->hash)) {
