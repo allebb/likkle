@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Ballen\Likkle\Lk2inClient</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Ballen.html">
+						Ballen<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Ballen.Likkle.html">
+						Likkle					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Ballen.Likkle.Lk2inClient.html">Lk2inClient</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Ballen.Likkle.html" title="Summary of Ballen\Likkle"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Lk2inClient</h1>
+
+
+	<div class="description">
+	<p>Likkle is a composer compatible PHP client library for the lk2.in URL shortener service (http://lk2.in).</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Ballen.html">Ballen</a>\<a href="namespace-Ballen.Likkle.html">Likkle</a><br>
+		
+
+				<b>License:</b>
+				<a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a><br>
+				<b>Author:</b>
+				Bobby Allen <a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#98;&#x61;&#108;l&#x65;&#110;&#x40;&#x62;&#111;&#x62;&#98;&#121;&#x61;&#108;l&#x65;&#110;&#x2e;&#x6d;&#101;">&#98;&#x61;&#108;l&#x65;&#110;&#x40;&#x62;&#111;&#x62;&#98;&#121;&#x61;&#108;l&#x65;&#110;&#x2e;&#x6d;&#101;</a><br>
+				<b>Version:</b>
+				2.0.0<br>
+				<b>Link:</b>
+				<a href="https://github.com/bobsta63/likkle">https://github.com/bobsta63/likkle</a><br>
+				<b>Link:</b>
+				<a href="http://bobbyallen.me">http://bobbyallen.me</a><br>
+			<b>Located at</b> <a href="source-class-Ballen.Likkle.Lk2inClient.html#3-231" title="Go to source code">Ballen/Likkle/Lk2inClient.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="generateRequestUri" id="_generateRequestUri">
+
+		<td class="attributes"><code>
+			 protected 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_generateRequestUri">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#59-66" title="Go to source code">generateRequestUri</a>( )</code>
+
+		<div class="description short">
+			<p>Generates the RESTful URI ready to be sent to the LK2.IN web service.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Generates the RESTful URI ready to be sent to the LK2.IN web service.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>The prepared lk2.in webservice URL.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="sendRequest" id="_sendRequest">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_sendRequest">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#68-94" title="Go to source code">sendRequest</a>( <span>string <var>$uri</var></span> )</code>
+
+		<div class="description short">
+			<p>Sends the request to the lk2.in web serivce and returns the raw response.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sends the request to the lk2.in web serivce and returns the raw response.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$uri</var></dt>
+					<dd>The full URI to request and get the raw response from.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getShortUrl" id="_getShortUrl">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getShortUrl">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#96-116" title="Go to source code">getShortUrl</a>( <span>string <var>$url</var></span>, <span>boolean <var>$urlencode</var> = <span class="php-keyword1">true</span></span> )</code>
+
+		<div class="description short">
+			<p>Returns a shortcode for the given URL.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a shortcode for the given URL.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>The current URL of which you wish to shorten.</dd>
+					<dt><var>$urlencode</var></dt>
+					<dd>URL encode the URL?</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Will return the full short url or 'false' if the API fails to respond with an new short code.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStats" id="_getStats">
+
+		<td class="attributes"><code>
+			 public 
+
+			object|boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStats">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#118-131" title="Go to source code">getStats</a>( <span> <var>$shortcode</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the statistics object for a given shortcode.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the statistics object for a given shortcode.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					object|boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getClicks" id="_getClicks">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer|boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getClicks">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#133-145" title="Go to source code">getClicks</a>( <span>string <var>$shortcode</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the number of times a link has been visited/clicked.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the number of times a link has been visited/clicked.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$shortcode</var></dt>
+					<dd>The shortcode as supplied by the webservice (the random alphanumeric characters after the TLD eg. 'http://lk2.in/XXX')</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer|boolean<br>Will return the number of clicks/visits or 'false' if the API fails to respond with the total number of clicks.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getShortUrlReplacementInString" id="_getShortUrlReplacementInString">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getShortUrlReplacementInString">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#147-165" title="Go to source code">getShortUrlReplacementInString</a>( <span>string <var>$string</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns a replaced string of multiple URLs with newly created lk2.in URLs.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a replaced string of multiple URLs with newly created lk2.in URLs.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$string</var></dt>
+					<dd>Replaced string with newly generated short URLs.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getRawResponse" id="_getRawResponse">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getRawResponse">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#177-184" title="Go to source code">getRawResponse</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the raw response content (as a JSON string.)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the raw response content (as a JSON string.)</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResponseObject" id="_getResponseObject">
+
+		<td class="attributes"><code>
+			 public 
+
+			object
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResponseObject">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#186-193" title="Go to source code">getResponseObject</a>( )</code>
+
+		<div class="description short">
+			<p>Returns the response (JSON decoded) so you can access like $object->message and $object->error etc.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the response (JSON decoded) so you can access like $object->message and $object->error etc.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					object<br>JSON decoded object containing response elements.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setProxyHost" id="_setProxyHost">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setProxyHost">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#195-208" title="Go to source code">setProxyHost</a>( <span>string <var>$host</var></span>, <span>string <var>$port</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Sets Proxy server host and port infomation (if required.)</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets Proxy server host and port infomation (if required.)</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$host</var></dt>
+					<dd>The hostname or IP address of the proxy server.</dd>
+					<dt><var>$port</var></dt>
+					<dd>The TCP port to use to connect to the proxy (default is set to 8080)</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setProxyAuth" id="_setProxyAuth">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setProxyAuth">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#210-220" title="Go to source code">setProxyAuth</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets Proxy BASIC authentication.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets Proxy BASIC authentication.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$username</var></dt>
+					<dd>Username to use to authenticate with the proxy.</dd>
+					<dt><var>$password</var></dt>
+					<dd>Password to use to authenticate with the proxy.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="resetRequest" id="_resetRequest">
+
+		<td class="attributes"><code>
+			 protected 
+
+			<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_resetRequest">#</a>
+		<code><a href="source-class-Ballen.Likkle.Lk2inClient.html#222-230" title="Go to source code">resetRequest</a>( )</code>
+
+		<div class="description short">
+			<p>Resets the request parameters/settings ready for the next request.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Resets the request parameters/settings ready for the next request.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Ballen.Likkle.Lk2inClient.html">Ballen\Likkle\Lk2inClient</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="HTTP_LK2IN_URL" id="HTTP_LK2IN_URL">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Ballen.Likkle.Lk2inClient.html#17-20" title="Go to source code"><b>HTTP_LK2IN_URL</b></a>
+			</code>
+
+			<div class="description short">
+				<p>lk2.in API specific settings.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>lk2.in API specific settings.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#HTTP_LK2IN_URL" class="anchor">#</a>
+				<code><span class="php-quote">'http://lk2.in/'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="HTTP_LK2IN_WSPATH" id="HTTP_LK2IN_WSPATH">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Ballen.Likkle.Lk2inClient.html#21" title="Go to source code"><b>HTTP_LK2IN_WSPATH</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#HTTP_LK2IN_WSPATH" class="anchor">#</a>
+				<code><span class="php-quote">'api/v1/'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
