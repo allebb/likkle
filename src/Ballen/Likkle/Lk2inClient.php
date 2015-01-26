@@ -1,27 +1,22 @@
-<?php
+<?php namespace Ballen\Likkle;
 
 /**
- * Likkle
- *
  * Likkle is a composer compatible PHP client library for the lk2.in
  *  URL shortener service (http://lk2.in).
  *
- * @author bobbyallen.uk@gmail.com (Bobby Allen)
- * @version 1.0.0
+ * @author Bobby Allen <ballen@bobbyallen.me>
+ * @version 2.0.0
  * @license http://opensource.org/licenses/MIT
  * @link https://github.com/bobsta63/likkle
- * @link http://www.bobbyallen.me
+ * @link http://bobbyallen.me
  *
  */
-
-namespace Ballen\Likkle;
-
 class Lk2inClient
 {
+
     /**
      * lk2.in API specific settings.
      */
-
     const HTTP_LK2IN_URL = 'http://lk2.in/';
     const HTTP_LK2IN_WSPATH = 'api/v1/';
 
@@ -74,25 +69,12 @@ class Lk2inClient
     private $post_params = array();
 
     /**
-     * Generates the complete RESTful URI ready to be sent to the LK2.IN web service.
-     * @param string $url Optional Shortcode to get count stats/URL for (used on GET requests only!).
+     * Generates the RESTful URI ready to be sent to the LK2.IN web service.
      * @return string The prepared lk2.in webservice URL.
      */
-    protected function generateRequestURI($shortcode = null)
+    protected function generateRequestURI()
     {
-        if ($shortcode != null) {
-            if ($this->request_new) {
-                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($shortcode) . '?forcenew';
-            } else {
-                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '/' . urlencode($shortcode);
-            }
-        } else {
-            if ($this->request_new) {
-                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod . '?forcenew';
-            } else {
-                return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod;
-            }
-        }
+        return self::HTTP_LK2IN_URL . self::HTTP_LK2IN_WSPATH . $this->request_wsmethod;
     }
 
     /**
@@ -137,20 +119,35 @@ class Lk2inClient
      * @param string $url The current URL of which you wish to shorten.
      * @return mixed Will return the full short url or 'false' if the API fails to respond with an new short code.
      */
-    public function getShortURL($url)
+    public function getShortURL($url, $urlencode = true)
     {
-        $this->request_wsmethod = 'url';
-        $this->request_httpmethod = 'POST';
-        $this->post_params = array(
-            'url' => $url
-        );
-        $this->sendRequest($this->generateRequestURI());
+        $this->request_wsmethod = 'shorten';
+        if ($urlencode) {
+            $url = urldecode($url);
+        }
+        $this->sendRequest($this->generateRequestURI() . '?url=');
+
         $apiresponse = json_decode($this->response);
-        if (isset($apiresponse->shorturl)) {
-            return self::HTTP_LK2IN_URL . $apiresponse->shorturl;
+        if (isset($apiresponse->data->hash)) {
+            return self::HTTP_LK2IN_URL . $apiresponse->data->hash;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns the statistics object for a given shortcode.
+     * @return object|boolean
+     */
+    public function getStats($shortcode)
+    {
+        $this->request_wsmethod = 'stats';
+        $this->sendRequest($this->generateRequestURI() . '?hash=' . $shortcode);
+        $apiresponse = json_decode($this->response);
+        if (isset($apiresponse->data)) {
+            return $apiresponse->data;
+        }
+        return false;
     }
 
     /**
@@ -160,15 +157,11 @@ class Lk2inClient
      */
     public function getClicks($shortcode)
     {
-        $this->request_wsmethod = 'clicks';
-        $this->request_httpmethod = 'GET';
-        $this->sendRequest($this->generateRequestURI($shortcode));
-        $apiresponse = json_decode($this->response);
-        if (isset($apiresponse->numberclicks)) {
-            return $apiresponse->numberclicks;
-        } else {
-            return false;
+        $apiresponse = $this->getStats($shortcode);
+        if (isset($apiresponse->visits)) {
+            return $apiresponse->visits;
         }
+        return false;
     }
 
     /**
@@ -193,11 +186,11 @@ class Lk2inClient
 
     /**
      * Forces the API to create a new URL shortcode so that the user does not get global click stats for the original URL.
+     * @deprecated since 2.0.0
      * @return \Ballen\Likkle\Lk2inClient
      */
     public function forceNewCounter()
     {
-        $this->request_new = true;
         return $this;
     }
 
@@ -257,7 +250,4 @@ class Lk2inClient
         $this->request_httpmethod = 'GET';
         return $this;
     }
-
 }
-
-?>
